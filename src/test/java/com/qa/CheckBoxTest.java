@@ -53,6 +53,10 @@ public class CheckBoxTest {
         Thread.sleep(2000);
         assertEquals("false", hidden.getAttribute("value"));
         Thread.sleep(2000);
+        WebElement oneButton = driver.findElementByXPath("//*[@id=\"easycont\"]/div/div[2]/div[2]/div[2]/div[1]/label/input");
+        checkall.click();
+        Thread.sleep(2000);
+
 
     }
 
