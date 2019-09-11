@@ -39,6 +39,23 @@ public class CheckBoxTest {
         Thread.sleep(3000);
     }
 
+    @Test
+    public void multiCheckbox() throws InterruptedException {
+        driver.get("https://www.seleniumeasy.com/test/basic-checkbox-demo.html");
+        Thread.sleep(2000);
+        WebElement checkall = driver.findElementById("check1");
+        WebElement hidden = driver.findElementById("isChkd");
+        checkall.click();
+        Thread.sleep(2000);
+        assertEquals("true", hidden.getAttribute("value"));
+        Thread.sleep(2000);
+        checkall.click();
+        Thread.sleep(2000);
+        assertEquals("false", hidden.getAttribute("value"));
+        Thread.sleep(2000);
+
+    }
+
 
 
 }
