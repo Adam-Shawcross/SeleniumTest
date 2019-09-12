@@ -1,5 +1,8 @@
 package com.qa;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,13 +15,16 @@ import static org.junit.Assert.assertEquals;
 
 public class SeleniumPractice {
     private ChromeDriver driver;
-
+    private ExtentReports extent;
+    ExtentTest test;
 
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\IdeaProjects\\SeleniumTest\\src\\test\\java\\resources\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        extent = new ExtentReports("C:\\Users\\Admin\\Documents\\seleniumtest.html", true);
+
     }
 
 
@@ -29,18 +35,24 @@ public class SeleniumPractice {
 
     @Test
     public void singleInputTest() throws InterruptedException {
+        test = extent.startTest("Loading Webpage");
         driver.get("https://www.seleniumeasy.com/test/basic-first-form-demo.html");
         Thread.sleep(3000);
+        test.log(LogStatus.INFO, "Browser started");
+        test.log(LogStatus.INFO, "Sending keys");
         WebElement textBox =  driver.findElement(By.id("user-message"));
         textBox.sendKeys("abc");
         Thread.sleep(3000);
         WebElement showMessage = driver.findElementByXPath("//*[@id=\"get-input\"]/button");
+        test.log(LogStatus.INFO, "clicking button");
         showMessage.click();
         Thread.sleep(3000);
         WebElement message = driver.findElementById("display");
         assertEquals("abc", message.getText());
-
-        Thread.sleep(3000);
+        test.log(LogStatus.PASS, "inputs are equal");
+        extent.endTest(test);
+        extent.flush();
+        Thread.sleep(10000);
 
     }
 
